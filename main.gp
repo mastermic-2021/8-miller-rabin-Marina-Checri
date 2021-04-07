@@ -1,0 +1,1 @@
+n = read("input.txt");
