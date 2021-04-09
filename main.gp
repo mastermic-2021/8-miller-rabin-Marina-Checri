@@ -15,17 +15,16 @@ n = read("input.txt");
 
  * D'après le cours et grace aux indications, on a une solution non triviale.
 
- * D'une part, on a n-1 = 2^3 * m, d'après la fonction val_dyadique (m=(n-1)>>3).
+ * D'une part, on a n-1 = 2^r * m, r=3, d'après la fonction val_dyadique (m=(n-1)>>3).
  * D'autre part, 2 est un témoin de Miller. Posons a=2.
  * Donc pour tout i de [[0, r-1]], a^{2^i m} != +- 1 [n].
  
  * On construit b = a^m = 2^m [n].
 
- * Alors b (= 3223960951504927716756369891467875268509886518131932299090264338451092197921323724109858561516195564589773896411712089507983921552235988315572681767849912647471667356535458606375713618592908694709401172341242602721541372768011268403589726342363312931279617652798321100361950609265695556193609186130351589) != +- 1 [n]
+ * Alors b != +- 1 [n]
+ * Et b_ = b^2 = a^{2^1 m} != +- 1[n]
 
- * Et b_ = b^2 = a^{2^1 m} (= 1438477581641362493823055732912333520561048159443119256308750199160786379205832594105988459753995295344300252500914364729216188815475037292209360924930070922527815951806306837036540290985094366236921941491225626968296997110557077364850377552696646144983118150213875792235240939309543091974431182559525105) != +- 1[n]
-
- * Il s'agit d'une solution non triviale (b_) de x^2 -1 modulo n ... !!
+ * >> Il s'agit d'une solution non triviale (b_) de x^2 -1 modulo n ... !!
 
  * On peut alors extraire une factorisation de n en écrivant :
  * n = gcd(n, lift(b_-1))*gcd(n, lift(b_+1))
@@ -110,8 +109,8 @@ test_miller(n, {nb_tests=0})={
 
 \\test_miller(n);
 
-k = val_dyadique(n-1);
-m = (n-1)>>k;
+r = val_dyadique(n-1);
+m = (n-1)>>r;
 a=2;
 b = Mod(a,n)^m;
 b_ = b^2;
